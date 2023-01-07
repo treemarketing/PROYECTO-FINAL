@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+
+    <title>Document</title>
+    <%- include('../partials/head'); %>
+</head>
+<body>
+
+
+  <%- include('../partials/navbar'); %>
+    <h2>Registro de Usuario</h2>
+     <!-- Nombre-->
+    <form action="/api/signup" method="post">
+  
+      <!-- Nombre-->
+
+<div class="form-group text-center">
+  <label class="col-md-4 control-label">Nombre</label>  
+  <div class="col-sm-5 container mb-2 inputGroupContainer">
+  <div class="input-group">
+  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+  <input  name="username" placeholder="Nombre de usuario" class="form-control"  type="text">
+    </div>
+  </div>
+</div>
+
+         <!-- EMAIL-->
+         <div class="form-group text-center">
+          <label class="col-md-4 control-label ">E-Mail</label>  
+            <div class="col-sm-5 container mb-2 inputGroupContainer">
+            <div class="input-group">
+          <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+          <input name="email" placeholder="E-Mail Address" class="form-control"  type="text">
+            </div>
+          </div>
+        </div>
+        <!-- password-->
+        <div class="form-group text-center">
+          <label class="col-md-4 control-label">Contraseña</label>  
+          <div class="col-sm-5 container mb-2 inputGroupContainer">
+          <div class="input-group">
+          <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+          <input  id="inputPassword" name="password" placeholder="Password" class="form-control"  type="password">
+            </div>
+          </div>
+        </div>
+        </div>
+
+     
+<!-- Whatsapp-->
+     
+<div class="container text-center">
+<label class="col-md-4 control-label ">Whatsapp</label>  
+  <div class="col-xl-4 container mb-2  ">
+<input name="phone" placeholder="(+54)333 3333333" class="form-control"  id="inputPhone" type="text">
+  </div>
+</div>
+</div>
+
+<!-- Adress-->
+    
+<div class="form-group text-center">
+<label class="col-md-4 control-label">Direción</label>  
+  <div class="col-sm-5 container mb-2  inputGroupContainer">
+  <div class="input-group">
+      <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+<input name="address" placeholder="Dirección" class="form-control"  type="text">
+  </div>
+</div>
+</div>
+
+
+<!-- Age-->
+    
+<div class="form-group text-center">
+  <label class="col-md-4 control-label">Edad</label>  
+    <div class="col-sm-5 container mb-2  inputGroupContainer">
+    <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+  <input name="age" placeholder="Edad" class="form-control" type="number">
+    </div>
+  </div>
+  </div>
+
+<!-- Avatar-->
+    
+<div class="form-group text-center">
+<label class="col-md-4 control-label">Avatar</label>  
+  <div class="col-sm-5 container mb-2  inputGroupContainer">
+  <div class="input-group">
+      <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+<input name="avatar" placeholder="Avatar" class="form-control" type="text" value="http://localhost:8080/public/usuario.jpg">
+  </div>
+</div>
+</div>
+
+<!-- is Admin -->
+<div class="form-group text-center">
+<label class="col-sm-5 container mb-2 control-label">Privilegios Administrador?</label>
+<div class="col-sm-5 container mb-2 ">
+    <div class="radio">
+        <label>
+            <input type="radio" name="isAdmin" value="true" /> Yes
+        </label>
+    </div>
+    <div class="radio">
+        <label>
+            <input type="radio" name="isAdmin" value="false" /> No
+        </label>
+    </div>
+</div>
+</div>
+
+
+        <div class="d-grid gap-2 col-6 mx-auto">
+        <button type="submit" class="btn btn-primary">Registrarse</button>
+        </div>
+      </form>
+      <%- include('../partials/footer'); %> 
+</body>
+</html>
+
+
+<script>
+  const phoneInputField = document.querySelector("#inputPhone")
+  const phoneInput = window.intlTelInput(phoneInputField, {
+    utilsScript:
+      "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+  })
+</script>

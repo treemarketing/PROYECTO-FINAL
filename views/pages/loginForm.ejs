@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Document</title>
+    <%- include('../partials/head'); %>
+</head>
+<body>
+
+
+  <%- include('../partials/navbar'); %>
+    <h2>Login de Usuario</h2>
+    <form action="/api/login" method="post">
+       <!-- EMAIL-->
+       <div class="container text-center">
+        <label class="col-md-4 control-label">E-Mail</label>  
+          <div class="col-sm-5 container mb-2 inputGroupContainer">
+          <div class="input-group">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+        <input name="email" placeholder="E-Mail Address" class="form-control"  type="text">
+          </div>
+        </div>
+      </div>
+ 
+        <div class="container text-center">
+          <label for="inputPassword" class="col-sm-2 col-form-label ">Password</label>
+          <div class="col-sm-5 container mb-2">
+            <input type="password" placeholder="Contraseña" class="form-control" id="inputPassword" name="password">
+          </div>
+ 
+      </form>
+      <%- include('../partials/footer'); %> 
+</body>
+</html>  
+
