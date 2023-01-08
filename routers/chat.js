@@ -1,5 +1,5 @@
 const express = require('express')
-const Producto = require('../controllers/productoDaos')
+const Mensaje = require('../controllers/chatDaos')
 
 
 
@@ -13,21 +13,30 @@ const mensajesRouter = express.Router()
 
 
 let fecha = new Date()
-const product = new Producto("product")
+const mensaje = new Mensaje("mensaje")
 
 
 //muestra todos los productos
-mensajes.get("/", validacion, (req, res) => {
-     product.getAll().then((respuesta)=>{
-    res.json(respuesta)
+mensajesRouter.get("/", (req, res) => {
+     mensaje.getAll().then((respuesta)=>{
+      if(!respuesta){
+        return res.status(404).send({
+          status:"error",
+        mensaje:"no hay mensajes"
+      })
+      }
+      res.json(respuesta)
+      return res.status(200).send({
+        status:"success",
+      })
     }) 
 })
 
 
 //GET CON ID IDENTIFICADOR EN LA URL TIPO PARAMS
-mensajesRouter.get('/:id', validacion, async (req, res) => {
-   let { id } = req.params;
-   await product.getById(id).then((respuesta)=>{
+mensajesRouter.get('/:email', async (req, res) => {
+   let { email } = req.params;
+   await mensaje.getByEmail(email).then((respuesta)=>{
      const encontrar = respuesta
      
      if (encontrar){
@@ -41,16 +50,16 @@ mensajesRouter.get('/:id', validacion, async (req, res) => {
   
 //me estoy quedando con respuesta del 1 ver como hago para pasar todo 
  
-productsRouter.post('/',validacion, async (req, res) => {
+mensajesRouter.post('/', async (req, res) => {
   try{
-  //  const {body} = req;
-   const id = await product.save(req.body)
+ 
+   const msg = await mensaje.save(req.body)
    res.status(200).send({
     status: 200,
     data: {
-        id,
+        msg,
     },
-    message:'producto agregado'
+    message:'mensaje enviado'
     })} catch (error) {
         res.status(500).send({
             status: 500,
@@ -58,15 +67,13 @@ productsRouter.post('/',validacion, async (req, res) => {
         })
       }
     })
-        //  let insertBody = { idP: body._id, fecha: fecha.toLocaleDateString(), nombre: body.nombre, descripcion: body.descripcion, codigo:body.codigo, foto: body.foto, precio: body.precio, stock: body.stock}
-        //  await product.save(insertBody).then((respuesta)=>{
-        //    res.json(respuesta);
+      
 
 
 
 
 //PUT CON ID PARAMS SIEMPRE y BODY!
-productsRouter.put('/:id',validacion, (req, res) => {
+mensajesRouter.put('/:id', (req, res) => {
   let { id } = req.params;
    console.log(req.body)
    const { idP, nombre, descripcion, codigo, foto, precio, stock } = req.body
@@ -83,7 +90,7 @@ productsRouter.put('/:id',validacion, (req, res) => {
 //ver si tengo que darle cambio en el archivo tambien com
 
  //DELETE CON ID ESCRIBIENDO EN EL ARCHIVO 
- productsRouter.delete('/:id',validacion, (req, res) => {
+ mensajesRouter.delete('/:id', (req, res) => {
    const { id } = req.params;  
      
    product.deleteById(id).then((response) => {
@@ -91,4 +98,4 @@ productsRouter.put('/:id',validacion, (req, res) => {
    })
  });
 
- module.exports = productsRouter
+ module.exports = mensajesRouter

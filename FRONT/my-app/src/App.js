@@ -2,11 +2,20 @@ import logo from './logo.svg';
 import './App.css';
 import { useState, useEffect } from 'react';
 import { Button, CardBody, CardTitle, CardText, Card, CardImg, CardGroup } from 'reactstrap'
-import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css'; 
+
+import io from 'socket.io-client'
+
 
 function App() {
 
   let ENDPOINT_PRODUCTOS = 'http://localhost:8080/api/productos/'
+  let ENDPOINT_MENSAJES = 'http://localhost:8080/api/mensajes/'
+
+  const socket = io('http://localhost:8080')
+//socket io 
+const [mensajes, setMensajes] = useState([]);
+
 
   const [productos, setProductos] = useState([]);
   const [id, setId] = useState("");
@@ -24,8 +33,22 @@ function App() {
 
   }
   
+  function cargarMensajes() {
+    let requestOptions = {
+      method: 'GET',
+      redirect: 'follow'
+    };
+    
+    fetch(ENDPOINT_MENSAJES, requestOptions)
+      .then((response) => response.json())
+      .then((result) => setMensajes(result))
+      .catch(error => console.log('error', error));
+    }
+
+
   useEffect(() => {
     cargarProductos();
+   
       //ver .que hay que devolverlo
   },[]);
   
@@ -102,6 +125,41 @@ fetch(ENDPOINT_PRODUCTOS + id, requestOptions)
   return (
 
       <div className="App">
+<div className="container"> 
+<div className="card"> 
+<div className="card-body">
+<h5 className="text-center">CHAT</h5>
+
+<form>
+<div className="d-flex mb-3">
+<input type="text" className="form-control" placeholder="nickname" id="nickname"></input>
+<button className='btn btn-success mx-3' type="submit" id="btn-nickname">Establecer</button>
+</div>
+
+</form>
+
+<form>
+<div className="d-flex">
+<input type="text" className="form-control" placeholder="mensaje" id="texto"></input>
+<button className='btn btn-success mx-3' type="submit" id="btn-texto">Enviar</button>
+</div>
+
+</form>
+
+<div className='card mt-3 mb-3' id="content-chat">
+    <div className='card-body'>
+
+
+    </div>
+
+</div>
+
+</div>
+</div>
+ </div>
+
+
+
 <button onClick={() => setId("")}>+</button>
 
       {productos.length > 0 && productos.map((prod) => (
@@ -175,7 +233,12 @@ fetch(ENDPOINT_PRODUCTOS + id, requestOptions)
       {!id && <button onClick={handleNuevo}>Nuevo</button>}
       {id && <button onClick={handleEditar}>Editar</button>}
     </div>
+
+
   );
 }
+
+
+
 
 export default App;

@@ -1,5 +1,10 @@
 const express = require('express')
+const { createServer } = require('http')
+const { Server } = require('socket.io')
 const app = express()
+const cors = require('cors')
+
+
 
 
 
@@ -11,7 +16,19 @@ const app = express()
     res.header('Access-Control-Allow-Methods', '*');
     next();
   });
-  
+
+  //socket io
+  const httpServer = createServer(app)
+  const io = new Server(httpServer, {
+    cors:{
+        origin:'*'
+    }
+  })
+
+ 
+
+ 
+
 //ENV 
 
 
@@ -23,20 +40,18 @@ const {TIPO_PERSISTENCIA, PORT, NODE_ENV, MONGOURL} = require("./config")
 //linea de configuracion ejs 
 app.set('view engine', 'ejs');
 
-
+app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 //defino lugar donde se van a poder ver los archivos 
 app.use('/public', express.static(__dirname + '/public'));
 
 
+// io.on('connection', (socket) => {
+//   console.log("llega?")
+// console.log(socket.id)
+// })
 
-const server = app.listen(PORT, () => {
-  console.log(`Servidor express escuchando en el puerto ${PORT} (${NODE_ENV} - ${TIPO_PERSISTENCIA})`
-  )
-})
-
-server.on("error", error => console.log(`Error en servidor ${error}`)) 
 
 
 
@@ -44,14 +59,13 @@ server.on("error", error => console.log(`Error en servidor ${error}`))
 
    const productsRouterFile = require('./routers/productosFile')
 
-
-
-
+  const mensajesRouter= require('./routers/chat.js')
   const productsRouter = require('./routers/productosMongo')
   const cartRouter = require('./routers/carritoFirebase')
   const loginRouter = require('./routers/login')
   const infoRouter = require('./routers/info')
-  const randomRouter = require('./routers/random')
+  const randomRouter = require('./routers/random');
+
 
   async function persistencia() {
     if (TIPO_PERSISTENCIA == "Mongo-DB"){
@@ -67,6 +81,14 @@ app.use('/api/carrito', cartRouter)
 app.use('/api/', loginRouter)
 app.use('/', infoRouter)
 app.use('/api', randomRouter)
+app.use('/api/mensajes', mensajesRouter)
+
+
+io.sockets.on('connection', (socket) => {
+  console.log('se conecto un usuario' + socket.id)
+})
+
+
 
 //control de direccion de error de paginas
 app.get("*", (req, res, next) =>{
@@ -76,7 +98,13 @@ app.get("*", (req, res, next) =>{
 })
 
 
+httpServer.listen(PORT, () => {
+  console.log(`Servidor express escuchando en el puerto ${PORT} (${NODE_ENV} - ${TIPO_PERSISTENCIA})`
+  )
+})
 
+
+httpServer.on("error", error => console.log(`Error en servidor ${error}`)) 
 
 
 
