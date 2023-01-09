@@ -1,4 +1,4 @@
-// const { default: mongoose } = require('mongoose');
+
 const mongoose = require('mongoose');
 const esquemaProd = require('../persistencia/modelsMDB/schemaProducto')
 
@@ -13,8 +13,6 @@ class Producto{
     async connectMDB() {
         try{
             
-           //const URL = "mongodb+srv://salo:tako@cluster0.51jwcs4.mongodb.net/test"
-           //let rta = await mongoose.createconection(URL, {
             let rta = await mongoose.connect(MONGOURL, {
             useNewUrlParser: true,
             useUniFiedTopology: true
@@ -66,11 +64,21 @@ async getById(id){
         throw Error(error.message)
     }
 }
+async getByCategoria(categoria){
+    try{
+        await this.connectMDB()
+        const prodCat = await esquemaProd.find({ categoria: categoria })
+        mongoose.disconnect()
+        return prodCat
+
+    }catch (error){
+        throw Error(error.message)
+    }
+}
 
 async changeById(id, cambio){
     try{
         await this.connectMDB()
-        //con este esquema hay que resolver ahora 
         const nuevo = await esquemaProd.updateOne({_id: String(id)}, {$set:cambio})
         mongoose.disconnect()
         console.log(nuevo)

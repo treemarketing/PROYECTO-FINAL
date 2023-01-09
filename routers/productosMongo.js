@@ -1,6 +1,5 @@
 const express = require('express')
 const Producto = require('../controllers/productoDaos')
-//const {productoDaos: Producto} = require('../daos/mainDaos')
 const { Router } = express
 
 const productsRouter = express.Router()
@@ -47,12 +46,25 @@ productsRouter.get('/:id', validacion, async (req, res) => {
    });
    })
 
+productsRouter.get('/categoria/:categoria', validacion, async (req, res) => {
+   let { categoria } = req.params;
+   await product.getByCategoria(categoria).then((respuesta)=>{
+     const encontrar = respuesta
+     
+     if (encontrar){
+         res.json(encontrar)
+     }else{
+     res.json({error: "producto no encontrado"})
+     }
+   });
+   })
+
   
-//me estoy quedando con respuesta del 1 ver como hago para pasar todo 
+
  
 productsRouter.post('/',validacion, async (req, res) => {
   try{
-  //  const {body} = req;
+ 
    const id = await product.save(req.body)
    res.status(200).send({
     status: 200,
@@ -67,9 +79,6 @@ productsRouter.post('/',validacion, async (req, res) => {
         })
       }
     })
-        //  let insertBody = { idP: body._id, fecha: fecha.toLocaleDateString(), nombre: body.nombre, descripcion: body.descripcion, codigo:body.codigo, foto: body.foto, precio: body.precio, stock: body.stock}
-        //  await product.save(insertBody).then((respuesta)=>{
-        //    res.json(respuesta);
 
 
 
@@ -78,8 +87,8 @@ productsRouter.post('/',validacion, async (req, res) => {
 productsRouter.put('/:id',validacion, (req, res) => {
   let { id } = req.params;
    console.log(req.body)
-   const { idP, nombre, descripcion, codigo, foto, precio, stock } = req.body
-   const cambio = { idP, nombre, descripcion, codigo, foto, precio, stock };
+   const { idP, nombre, descripcion, categoria, codigo, foto, precio, stock } = req.body
+   const cambio = { idP, nombre, descripcion, categoria, codigo, foto, precio, stock };
      
      product.changeById(id, cambio).then((respuesta)=>{
       console.log(cambio)
@@ -89,7 +98,7 @@ productsRouter.put('/:id',validacion, (req, res) => {
 
  
 
-//ver si tengo que darle cambio en el archivo tambien com
+
 
  //DELETE CON ID ESCRIBIENDO EN EL ARCHIVO 
  productsRouter.delete('/:id',validacion, (req, res) => {
