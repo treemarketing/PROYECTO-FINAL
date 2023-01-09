@@ -46,7 +46,7 @@ async getAll(){
     try{
         await this.connectMDB()
         const prod = await esquemaProd.find({})
-        mongoose.disconnect()
+        // mongoose.disconnect()
         return prod
 
     }catch (error){

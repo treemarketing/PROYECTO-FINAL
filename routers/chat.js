@@ -26,9 +26,7 @@ mensajesRouter.get("/", (req, res) => {
       })
       }
       res.json(respuesta)
-      return res.status(200).send({
-        status:"success",
-      })
+      
     }) 
 })
 

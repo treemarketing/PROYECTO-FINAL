@@ -85,7 +85,16 @@ app.use('/api/mensajes', mensajesRouter)
 
 
 io.sockets.on('connection', (socket) => {
-  console.log('se conecto un usuario' + socket.id)
+  // console.log('se conecto un usuario' + socket.id)
+
+
+  socket.on('mensaje', (message, nickname)=>{
+    socket.broadcast.emit('message', {
+      body: message,
+      from: nickname
+    })
+  })
+
 })
 
 

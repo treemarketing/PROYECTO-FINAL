@@ -44,7 +44,7 @@ async getAll() {
     try{
         await this.connectMDB()
         const msj = await schemaMensaje.find({})
-        mongoose.disconnect()
+        // mongoose.disconnect()
         return msj
 
     }catch (error){
