@@ -12,7 +12,7 @@ const cartRouter = Router()
 
 
   const cart = new Cart('cart')
-  cart.getAll()
+
 
   cartRouter.post('/', (req, res) => {
  cart.save().then((response) =>{
@@ -48,7 +48,7 @@ const cartRouter = Router()
   let { id } = req.params;
 
   // id = parseInt(id)
-  cartRouter.getProductsByCart(id).then((respuesta) => {
+  cart.getProductsByCart(id).then((respuesta) => {
     res.json(respuesta);
   });
 })
@@ -60,9 +60,9 @@ const cartRouter = Router()
 cartRouter.post('/:id/productos', (req, res) => {
   const {id} = req.params;
   const { body } = req;
-  const { nombre, descripcion, codigo, foto, precio, stock } = body
-  const insertProducts = { id: body.id, nombre, descripcion, codigo, foto, precio, stock };
-  //  const {fecha, nombre, descripcion, codigo, foto, precio, stock } = req.body
+  const { nombre, descripcion, categoria, foto, precio, stock } = body
+  const insertProducts = { id: body.id, nombre, descripcion, categoria, foto, precio, stock };
+
 
 
   cart.addToCart(id, insertProducts).then((response) =>{

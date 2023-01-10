@@ -29,7 +29,6 @@ productsRouterFile.get("/", validacion, async (req, res) => {
     res.json(respuesta)
     }) 
     
-   //  res.json(products.getAll())
 })
 
 
@@ -47,28 +46,25 @@ productsRouterFile.get('/:id', validacion, async (req, res) => {
      }
    });
    })
-   // const products = new Products(productos)
 
-  
-//me estoy quedando con respuesta del 1 ver como hago para pasar todo 
  
 productsRouterFile.post('/',validacion, async (req, res) => {
    const {body} = req;
          console.log(body)
-         let insertBody = {fecha: fecha.toLocaleDateString(), nombre: body.nombre, descripcion: body.descripcion, codigo:body.codigo, foto: body.foto, precio: body.precio, stock: body.stock}
+         let insertBody = {fecha: fecha.toLocaleDateString(), nombre: body.nombre, descripcion: body.descripcion, categoria: body.categoria, codigo:body.codigo, foto: body.foto, precio: body.precio, stock: body.stock}
          await product.save(insertBody).then((respuesta)=>{
            res.json(respuesta);
  });
 })
 
 
-//PUT CON ID PARAMS SIEMPRE y BODY!
+//PUT CON ID PARAMS 
 productsRouterFile.put('/:id',validacion, (req, res) => {
    const { id } = req.params;
    const { body } = req;
-   const { nombre, descripcion, codigo, foto, precio, stock } = body
+   const { nombre, descripcion, categoria, codigo, foto, precio, stock } = body
    console.log(body.id)
-   const p = { id, nombre, descripcion, codigo, foto, precio, stock };
+   const p = { id, nombre, descripcion, categoria, codigo, foto, precio, stock };
      
      product.update(p).then((respuesta)=>{
 
@@ -77,9 +73,9 @@ productsRouterFile.put('/:id',validacion, (req, res) => {
  }) 
 
 
-//ver si tengo que darle cambio en el archivo tambien com
 
- //DELETE CON ID ESCRIBIENDO EN EL ARCHIVO 
+
+ //DELETE CON ID 
  productsRouterFile.delete('/:id',validacion, (req, res) => {
    const { id } = req.params;  
   

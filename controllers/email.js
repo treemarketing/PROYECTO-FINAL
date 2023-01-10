@@ -18,12 +18,12 @@ const transporter = nodemailer.createTransport({
 });
 
 
-const mailOptions = {
-    from: 'Servidor Node.js',
-    to: TEST_MAIL,
-    subject: 'Nuevo Registro',
-    html:  `<h1 style="color: blue;"> Mail: ${user.email}, Password: ${user.password}, Nombre: ${user.name}, Edad: ${user.age}, Direccion: ${user.address}, Telefono: ${user.phone}, Avatar: ${user.avatar} </span></h1>`
- }
+// const mailOptions = {
+//     from: 'Servidor Node.js',
+//     to: TEST_MAIL,
+//     subject: 'Nuevo Registro',
+//     html:  `<h1 style="color: blue;"> Mail: ${user.email}, Password: ${user.password}, Nombre: ${user.name}, Edad: ${user.age}, Direccion: ${user.address}, Telefono: ${user.phone}, Avatar: ${user.avatar} </span></h1>`
+//  }
  
 async function enviarEmailAdm(){
     try {
@@ -38,7 +38,7 @@ const mailCompra = {
     from: 'Servidor Node.js',
     to: TEST_MAIL,
     subject: 'Nuevo Pedido',
-    html:  `<h1 style="color: blue;"> Mail: ${user.email}, Nombre: ${user.name} </span></h1>`
+    html:  `<h1 style="color: blue;">  </span></h1>`
  }
 
  async function enviarEmailCompra(){

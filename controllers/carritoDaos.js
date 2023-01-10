@@ -24,6 +24,7 @@ class Carrito {
       const query = db.collection('carritos')
         const doc = query.doc()
         const carritos = await doc.get()
+        
         return carritos.data()
       }catch (error){
         throw Error(error.message)
@@ -113,7 +114,7 @@ class Carrito {
         
         let idrand = random(1,10000)
         productoAtlas.id = String(idrand)
-
+        
         await doc.update({
           productos: admin.firestore.FieldValue.arrayRemove(String(productoAtlas))})
   

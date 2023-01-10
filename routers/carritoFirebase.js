@@ -10,7 +10,6 @@ const cartRouter = Router()
 
 
 
-
   const cart = new Carrito('cart')
   // cart.getAll()
 
@@ -29,6 +28,7 @@ const cartRouter = Router()
 
     cart.getAll().then((respuesta)=>{
       
+      console.log(respuesta)
     res.json(respuesta)
     }) 
   }) 
@@ -52,7 +52,7 @@ const cartRouter = Router()
   let { idC } = req.params;
 
   // id = parseInt(id)
-  cartRouter.getProductsByCart(idC).then((respuesta) => {
+  cart.getCarritoById(idC).then((respuesta) => {
     res.json(respuesta);
   });
 })
@@ -64,8 +64,8 @@ const cartRouter = Router()
 cartRouter.post('/:idC/productos', (req, res) => {
   const {idC} = req.params;
   const { body } = req;
-  const { nombre, descripcion, codigo, foto, precio, stock } = body
-  const insertProducts = { idP: body.idP, nombre, descripcion, codigo, foto, precio, stock };
+  const { nombre, descripcion,categoria, foto, precio, stock } = body
+  const insertProducts = { idP: body.idP, nombre, categoria, descripcion, foto, precio, stock };
 
 
 

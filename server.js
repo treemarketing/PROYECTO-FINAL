@@ -58,7 +58,7 @@ app.use('/public', express.static(__dirname + '/public'));
 //RUTAS DE ROUTER CON FILE SYSTEM
 
    const productsRouterFile = require('./routers/productosFile')
-
+  const ordenesRouter= require('./routers/ordenes')
   const mensajesRouter= require('./routers/chat.js')
   const productsRouter = require('./routers/productosMongo')
   const cartRouter = require('./routers/carritoFirebase')
@@ -82,6 +82,7 @@ app.use('/api/', loginRouter)
 app.use('/', infoRouter)
 app.use('/api', randomRouter)
 app.use('/api/mensajes', mensajesRouter)
+app.use('/api/ordenes', ordenesRouter)
 
 
 io.sockets.on('connection', (socket) => {

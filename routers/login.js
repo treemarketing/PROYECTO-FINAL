@@ -33,13 +33,6 @@ function createHash(password) {
 
 //fin bcrypt
 
-// mongoose
-//   .connect("mongodb://localhost:27017/ecommerce")
-//   .then(() => console.log("Connected to DB"))
-//   .catch((e) => {
-//     console.error(e);
-//     throw "can not connect to the db";
-//   });
 
 
 
@@ -50,10 +43,10 @@ console.log(URL)
 
 
 
-  // const { PORT, MONGOURI} = require("../config")
-  console.log(MONGOURL)
+
+
 //mongo db coneccion
-//metiendo mano a mongo atlas
+
 async function connectMongo(){
 
 
@@ -161,47 +154,6 @@ loginRouter.use(
 
 
 
-
- //res.sendFile('loginForm', { root: "pages/"})
-  // si iniciamos sesion mostrar el inicio o bienvenida y sino login
-
-  // loginRouter.get('/', (req, res) => {
-  //   let user = req.session;
-  //   console.log(user.user)
-  //   if (req.session.user !==undefined){
-  //     res.render('index', { root: "pages/"})
-  //   } else {
-  //     res.render('loginForm', { root: "pages/"})
-  //   }    
-  //  })
-
-
-  // mostrar el formulario de login
-  // loginRouter.get('/login', (req, res) => {
-  //   let user = req.session;
-  //   console.log(user.user)
-  //   if (req.session.user !==undefined){
-  //     res.sendFile('index.html', { root: "pages/"})
-  //   } else {
-  //     res.sendFile('loginForm.html', { root: "pages/"})
-  //   }    
-  //  })
-
-
-   //recibimos credenciales e iniciar sesion
-
-//    loginRouter.post('/login', (req, res) => {
-//     let {user} = req.body;
-//   console.log(user)
-//  console.log (user == undefined)
-//      if (user !==undefined ){
-//        req.session.user = user
-//        res.redirect(__dirname + '/logueado.html')
-//      } else {
-//        res.sendFile(__dirname + '/loginForm.html')
-//      }    
-//     })
-
 loginRouter.get('/', checkAuthentication ,(req, res) => {
   res.render("pages/index", {});
 })
@@ -272,12 +224,7 @@ function checkAuthentication(req, res, next) {
   }
 }
 
-// app.get("/", checkAuthentication, (req, res) => {
-//   const { username, password } = req.user;
-//   const user = { username, password };
-//  // res.render("profileUser", { user})
-//   res.send("<h1>Ruta ok!</h1>"+ JSON.stringify(user));
-// });
+
 
 
 
