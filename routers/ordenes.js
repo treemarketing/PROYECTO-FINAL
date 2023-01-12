@@ -14,8 +14,10 @@ const ordenes = new Ordenes("ordenes")
 
 //muestra todas las ordenes
 ordenesRouter.get("/",  (req, res) => {
-     ordenes.getAll().then((respuesta)=>{
-    res.json(respuesta)
+     ordenes.getAll().then((ordenes)=>{
+    // res.json(respuesta)
+    console.log(ordenes)
+    res.render("pages/ordenes", {ordenes });
     }) 
 })
 
