@@ -16,6 +16,7 @@ const ordenes = new Ordenes("ordenes")
 ordenesRouter.get("/",  (req, res) => {
      ordenes.getAll().then((ordenes)=>{
     // res.json(respuesta)
+    
     console.log(ordenes)
     res.render("pages/ordenes", {ordenes });
     }) 
@@ -58,7 +59,7 @@ ordenesRouter.post('/', async (req, res) => {
    res.status(200).send({
     status: 200,
     data: {
-        orden,
+        orden
     },
     message:'orden creada'
     })} catch (error) {
@@ -68,7 +69,6 @@ ordenesRouter.post('/', async (req, res) => {
         })
       }
     })
-
 
 
  

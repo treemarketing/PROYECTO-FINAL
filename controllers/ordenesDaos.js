@@ -2,7 +2,7 @@
 const mongoose = require('mongoose');
 const esquemaOrdenes = require('../persistencia/modelsMDB/schemaOrdenes')
 const enviarEmailCompra = require('../controllers/email')
-
+const items = require('../persistencia/modelsMDB/schemaItem')
   const {MONGOURL} = require("../config")
  
 
@@ -29,8 +29,7 @@ async newOrden(pedido){
     await this.connectMDB()
     const nOrdenes = await esquemaOrdenes.countDocuments()
     try{
-        
-        
+        orden.items = pedido.items
          orden.time = tiempo.toString()
          orden.estado = "generada"
          orden.email = pedido.email
@@ -38,6 +37,7 @@ async newOrden(pedido){
          orden.numeroOrden = nOrdenes + 1
          console.log(orden)
         await esquemaOrdenes.create(orden)
+       
         mongoose.disconnect()
         return orden
     }catch (error){
@@ -63,15 +63,24 @@ async enviarOrdenes(email){
 async getAll(){
     try{
         await this.connectMDB()
-        const ordenEncontrada = await esquemaOrdenes.find({})
+        // const ordenEncontrada = await esquemaOrdenes.find({})
+      
         // mongoose.disconnect()
         // const nOrdenes = await esquemaOrdenes.countDocuments()
-        return ordenEncontrada
+        // return ordenEncontrada
+        let ordenEncontrada = await esquemaOrdenes.find({}).populate("items")
+            return ordenEncontrada
+        
+            }catch (error){
+                throw Error(error.message)
+              
+          
+              }
+            }
+    
+    
 
-    }catch (error){
-        throw Error(error.message)
-}
-}
+
 
 
 async deleteById(id){
@@ -84,7 +93,6 @@ async deleteById(id){
         throw Error(error.message)
 }
 }
-
 
 
 
