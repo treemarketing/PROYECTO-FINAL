@@ -26,10 +26,11 @@ class Ordenes{
 async newOrden(pedido){
     let tiempo = new Date()
     const orden = {pedido}
-    const nOrdenes = await this.getnOrdenes()
+    await this.connectMDB()
+    const nOrdenes = await esquemaOrdenes.countDocuments()
     try{
         
-        await this.connectMDB()
+        
          orden.time = tiempo.toString()
          orden.estado = "generada"
          orden.email = pedido.email
@@ -43,6 +44,9 @@ async newOrden(pedido){
         throw Error(error.message)
     }
 }
+
+
+
 
 async enviarOrdenes(email){
     try{
