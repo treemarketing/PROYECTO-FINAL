@@ -24,4 +24,3 @@ const schemaOrdenes = new mongoose.Schema({
 })
 module.exports = mongoose.model('Ordenes', schemaOrdenes); 
 
-// type: mongoose.Schema.Types.ObjectId,

@@ -1,5 +1,7 @@
 const express = require('express')
 const Producto = require('../controllers/productoDaos')
+
+
 const { Router } = express
 
 const productsRouter = express.Router()
@@ -26,8 +28,12 @@ const product = new Producto("product")
 
 //muestra todos los productos
 productsRouter.get("/", validacion, (req, res) => {
-     product.getAll().then((respuesta)=>{
-    res.json(respuesta)
+     product.getAll().then((productos)=>{
+      if (productos){
+        res.json({productos})
+    }else{
+        res.json({mensaje: "No hay productos"})
+    }
     }) 
 })
 

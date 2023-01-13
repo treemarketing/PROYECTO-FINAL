@@ -2,7 +2,6 @@
 const mongoose = require('mongoose');
 const esquemaOrdenes = require('../persistencia/modelsMDB/schemaOrdenes')
 const enviarEmailCompra = require('../controllers/email')
-const items = require('../persistencia/modelsMDB/schemaItem')
   const {MONGOURL} = require("../config")
  
 
@@ -26,6 +25,7 @@ class Ordenes{
 async newOrden(pedido){
     let tiempo = new Date()
     const orden = {pedido}
+  
     await this.connectMDB()
     const nOrdenes = await esquemaOrdenes.countDocuments()
     try{
@@ -37,7 +37,16 @@ async newOrden(pedido){
          orden.numeroOrden = nOrdenes + 1
          console.log(orden)
         await esquemaOrdenes.create(orden)
-       
+        const items = JSON.stringify({orden})
+        const email = orden.email
+        const mailCompra = {
+            from: 'Servidor Node.js',
+            to: email,
+            subject: 'Nueva Orden',
+            html:  `<h1 style="color: blue;"> Pedido: ${items}   </span></h1>`
+         }
+        enviarEmailCompra(mailCompra)
+   
         mongoose.disconnect()
         return orden
     }catch (error){
@@ -51,9 +60,9 @@ async newOrden(pedido){
 async enviarOrdenes(email){
     try{
         await this.connectMDB()
-        const nOrdenes = await esquemaOrdenes.find({email: email})
+        const ordenes = await esquemaOrdenes.find({email: email})
         // mongoose.disconnect()
-        return nOrdenes
+        return ordenes
 
     }catch (error){
         throw Error(error.message)

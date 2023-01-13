@@ -9,8 +9,8 @@ const transporter = nodemailer.createTransport({
     secure: false, // use SSL
     port: 587,
     auth: {
-        user: 'dudley68@ethereal.email',
-        pass: 'ZftAr6gSCFa3Tr14VW'
+        user: 'cornell.treutel93@ethereal.email',
+        pass: 'wugByz8hgj6qByeTrC'
     },
     tls: {
         rejectUnauthorized: false
@@ -18,30 +18,20 @@ const transporter = nodemailer.createTransport({
 });
 
 
-// const mailOptions = {
-//     from: 'Servidor Node.js',
-//     to: TEST_MAIL,
-//     subject: 'Nuevo Registro',
-//     html:  `<h1 style="color: blue;"> Mail: ${user.email}, Password: ${user.password}, Nombre: ${user.name}, Edad: ${user.age}, Direccion: ${user.address}, Telefono: ${user.phone}, Avatar: ${user.avatar} </span></h1>`
-//  }
+
  
-async function enviarEmailAdm(){
+async function enviarEmailAdm(mailCompra){
     try {
-        const info = await transporter.sendMail(mailOptions)
+        const info = await transporter.sendMail(mailCompra)
         console.log(info)
      } catch (err) {
         console.log(err)
      }
 }
 
-const mailCompra = {
-    from: 'Servidor Node.js',
-    to: TEST_MAIL,
-    subject: 'Nuevo Pedido',
-    html:  `<h1 style="color: blue;">  </span></h1>`
- }
 
- async function enviarEmailCompra(){
+
+ async function enviarEmailCompra(mailCompra){
     try {
         const info = await transporter.sendMail(mailCompra)
         console.log(info)
