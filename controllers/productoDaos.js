@@ -43,7 +43,7 @@ async save(producto){
 async getAll(){
     try{
         await this.connectMDB()
-        const prod = await esquemaProd.find({})
+        const prod = await esquemaProd.find()
         // mongoose.disconnect()
         return prod
 
