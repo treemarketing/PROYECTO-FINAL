@@ -50,7 +50,6 @@ productsRouterFile.get('/:id', validacion, async (req, res) => {
  
 productsRouterFile.post('/',validacion, async (req, res) => {
    const {body} = req;
-         console.log(body)
          let insertBody = {fecha: fecha.toLocaleDateString(), nombre: body.nombre, descripcion: body.descripcion, categoria: body.categoria, codigo:body.codigo, foto: body.foto, precio: body.precio, stock: body.stock}
          await product.save(insertBody).then((respuesta)=>{
            res.json(respuesta);

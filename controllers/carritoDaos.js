@@ -2,7 +2,7 @@
 let admin = require("firebase-admin");
 
 let serviceAccount = require("../persistencia/bd/ecommerce-b13b6-firebase-adminsdk-z5wy7-75e5ba3f58.json");
-const Producto = require("./productoDaos")
+const Producto = require("../controllers/productoDaos")
 
 
 
@@ -24,7 +24,7 @@ class Carrito {
       const query = db.collection('carritos')
         const doc = query.doc()
         const carritos = await doc.get()
-        
+        console.log(carritos.data())
         return carritos.data()
       }catch (error){
         throw Error(error.message)

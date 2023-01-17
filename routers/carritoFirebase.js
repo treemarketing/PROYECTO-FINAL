@@ -2,7 +2,7 @@ const Carrito = require('../controllers/carritoDaos')
 
 const express = require('express')
  const { Router } = express
-const cartRouter = Router()
+const cartFireRouter = Router()
 
 
 
@@ -15,16 +15,17 @@ const cartRouter = Router()
 
 
   //POST DE NUEVO CARRITO CON PRODUCTOS
-  cartRouter.post('/', (req, res) => {
+  cartFireRouter.post('/', (req, res) => {
   cart.newCarrito().then((response) =>{
             res.json(response)
         })
 
 });
+  
 
 
     //muestra todos los productos que estan dentro del carrito OK
-    cartRouter.get("/", (req, res) => {
+    cartFireRouter.get("/", (req, res) => {
 
     cart.getAll().then((respuesta)=>{
       
@@ -37,7 +38,7 @@ const cartRouter = Router()
 
 
   //DELETE CON ID CARRITO OK
-  cartRouter.delete('/:idC', (req, res) => {
+  cartFireRouter.delete('/:idC', (req, res) => {
     const { idC } = req.params;  
   
 
@@ -48,7 +49,7 @@ const cartRouter = Router()
 
 
   //GET CON ID IDENTIFICADOR EN LA URL TIPO PARAMS OK
-  cartRouter.get('/:idC/productos', (req, res) => {
+  cartFireRouter.get('/:idC/productos', (req, res) => {
   let { idC } = req.params;
 
   // id = parseInt(id)
@@ -61,7 +62,7 @@ const cartRouter = Router()
 
 //AGREGO PRODUCTOS AL CARRITO OK
 
-cartRouter.post('/:idC/productos', (req, res) => {
+cartFireRouter.post('/:idC/productos', (req, res) => {
   const {idC} = req.params;
   const { body } = req;
   const { nombre, descripcion,categoria, foto, precio, stock } = body
@@ -77,7 +78,7 @@ cartRouter.post('/:idC/productos', (req, res) => {
 
 // BORRO POR ID DE PRODUCTOS OK
 
-cartRouter.delete('/:idC/productos/:idP', (req, res) => {
+cartFireRouter.delete('/:idC/productos/:idP', (req, res) => {
   const { idC, idP } = req.params;  
   let idEncarrito = id; 
   cart.deleteProductoDeCarrito(idC, idP, idEncarrito).then((response) => {
@@ -85,4 +86,4 @@ cartRouter.delete('/:idC/productos/:idP', (req, res) => {
   })
 });
 
-module.exports = cartRouter;
+module.exports = cartFireRouter;

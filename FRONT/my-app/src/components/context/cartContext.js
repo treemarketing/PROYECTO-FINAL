@@ -17,7 +17,7 @@ export const CartProvider = ({children}) => {
 
     const agregarAlCarrito  = (item) => {
       console.log('agregar al carrito')
-
+      console.log(item)
      
       if(cart.find(prod => prod._id === item._id)){
         

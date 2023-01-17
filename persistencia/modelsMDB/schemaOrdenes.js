@@ -22,5 +22,7 @@ const schemaOrdenes = new mongoose.Schema({
     time: {type: String, require: false},
     direccion: { type: String, required: true },
 })
+
+
 module.exports = mongoose.model('Ordenes', schemaOrdenes); 
 

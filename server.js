@@ -61,7 +61,8 @@ app.use('/public', express.static(__dirname + '/public'));
   const ordenesRouter= require('./routers/ordenes')
   const mensajesRouter= require('./routers/chat.js')
   const productsRouter = require('./routers/productosMongo')
-  const cartRouter = require('./routers/carritoFirebase')
+   const cartFireRouter = require('./routers/carritoFirebase')
+  const cartRouter = require('./routers/carritoMongo')
   const loginRouter = require('./routers/login')
   const infoRouter = require('./routers/info')
   const randomRouter = require('./routers/random');
@@ -77,7 +78,8 @@ app.use('/public', express.static(__dirname + '/public'));
 }
 persistencia()
 
-app.use('/api/carrito', cartRouter)
+app.use('/api/carrito', cartFireRouter)
+app.use('/api/carritomongo', cartRouter)
 app.use('/api/', loginRouter)
 app.use('/', infoRouter)
 app.use('/api', randomRouter)
